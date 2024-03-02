@@ -8,11 +8,32 @@
       content="application js pour la recherche de pays"
     />
     <link href="./output.css" rel="stylesheet" />
+    <link href="./autre.css" rel="stylesheet" />
     <title>rechercher par pays</title>
   </head>
   <body>
-    <div class="bg-travel h-screen bg-no-repeat bg-cover bg-left bg-fixed">
-      <p>ok</p>
+    <div
+      class="w-full h-full bg-no-repeat bg-cover bg-left bg-fixed"
+      style="background-image: url('./assets/img/travel-img.jpg')"
+    >
+      <div class="h-screen">
+        <div
+          class="flex flex-col flex-wrap py-24 w-1/3 mx-auto rounded-xl h-96"
+        >
+          <form class="search-form mx-auto">
+            <input
+              type="text"
+              class="search w-96 mx-auto border rounded-lg px-3 py-2"
+              placeholder="Entrer un pays"
+            />
+            <ul class="suggestions bg-white">
+              <li class="h-10 py-3 px-2">Rechercher un pays</li>
+              <li class="h-10 py-3 px-2">Dans le monde...</li>
+            </ul>
+          </form>
+        </div>
+      </div>
     </div>
+    <script src="app.js"></script>
   </body>
 </html>

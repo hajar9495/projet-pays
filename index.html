@@ -1,37 +1,29 @@
 <!doctype html>
-<html lang="fr" class="h-full">
+<html lang="fr" class="w-full h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="application js pour la recherche de pays"
-    />
+    <meta name="description" content="application js pour la recherche de pays" />
     <link href="./src/output.css" rel="stylesheet" />
-    <link href="./src/autre.css" rel="stylesheet" />
-    <title>rechercher par pays</title>
+    <title>Rechercher par pays</title>
   </head>
-  <body class="h-full m-0 p-0">
+  <body class="w-full h-full m-0 p-0 overflow-x-hidden ">
     <div
-      class="w-full bg-cover bg-center bg-no-repeat bg-fixed flex flex-col items-center"
-      style="
-        min-height: 100vh;
-        padding-top: 80px;
-        background-image: url(./src/assets/img/travel-img.jpg);
-      "
+      class="w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed flex flex-col items-center pt-16 px-4 box-border"
+      style="background-image: url(./src/assets/img/travel-img.jpg)"
     >
-      <div class="w-96 flex flex-col gap-6">
-        <form class="search-form relative w-full">
+      <div class="w-full max-w-sm flex flex-col gap-4 box-border">
+        <form class="search-form relative w-full box-border">
           <input
             type="text"
-            class="search w-full border rounded-lg px-3 py-2 shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            class="search w-full box-border border border-gray-300 rounded-lg px-4 py-3 shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-base text-black"
             placeholder="Entrez un pays"
           />
           <ul
             class="suggestions absolute left-0 right-0 z-50 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
           ></ul>
         </form>
-        <div class="country-card w-full"></div>
+        <div class="country-card w-full box-border"></div>
       </div>
     </div>
   </body>

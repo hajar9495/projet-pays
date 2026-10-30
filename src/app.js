@@ -11,7 +11,6 @@ const searchCountries = async (pays) => {
   const api = `https://api.restcountries.com/countries/v5?q=${pays}`;
 
   try {
-    // appel api
     const response = await fetch(api, {
       method: "GET",
       headers: {
@@ -19,7 +18,6 @@ const searchCountries = async (pays) => {
       },
     });
     const data = await response.json();
-    // si vide -> pas de donnée sinon retourner objet json
     if (!data.data || !data.data.objects) {
       return [];
     } else {
@@ -33,7 +31,6 @@ const searchCountries = async (pays) => {
 
 // 2. Affichage des suggestions dans le menu déroulant
 const displaySuggestions = (countries) => {
-  // si aucun pays dans api-> afficher pas de pays dans suggestions
   if (!countries || countries.length === 0) {
     suggestions.innerHTML = `<li class="py-2 px-3 text-gray-400">Aucun pays trouvé</li>`;
     return;
@@ -51,15 +48,12 @@ const displaySuggestions = (countries) => {
   }
 };
 
-// 3. Affichage de la carte détaillée (sortie de displaySuggestions pour être globale)
+// 3. Affichage de la carte détaillée
 const displayCountry = (country) => {
   if (!country) return;
   const infosUtiles = {
     nom: country.names ? country.names.common : "Inconnu",
-    capitale:
-      country.capitals && country.capitals.length > 0
-        ? country.capitals[0].name
-        : "Inconnue",
+    capitale: country.capitals && country.capitals.length > 0 ? country.capitals[0].name : "Inconnue",
     population: country.population,
     drapeau: country.flag && country.flag.url_svg ? country.flag.url_svg : "",
     langue: country.languages ? country.languages[0].name : "Inconnue",
@@ -67,19 +61,21 @@ const displayCountry = (country) => {
     devise: country.currencies ? country.currencies[0].symbol : "Inconnue",
   };
 
-  countryCard.innerHTML = `<div class="bg-white rounded-2xl shadow-xl p-6 w-full border border-gray-100" style="padding-top: 50px; margin-top: 30px;">
+  countryCard.innerHTML = `
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full border border-gray-100 mt-6">
       <img src="${infosUtiles.drapeau}" alt="Drapeau de ${infosUtiles.nom}" class="w-32 h-20 object-cover mx-auto mb-4 rounded-md shadow border">
       
-      <h2 class="text-3xl font-extrabold text-gray-800 mb-4" style="padding-left: 20px">${infosUtiles.nom}</h2> 
+      <h2 class="text-3xl font-bold text-gray-800 mb-4 text-center">${infosUtiles.nom}</h2> 
       
-      <div class="space-y-2 text-left text-gray-600 text-sm" style="padding-left: 20px">
+      <div class="space-y-2 text-left text-gray-600 text-sm">
         <p><strong>📍 Capitale :</strong> ${infosUtiles.capitale}</p>
         <p><strong>👥 Population :</strong> ${infosUtiles.population.toLocaleString()} habitants</p>
         <p><strong>🗣️ Langue :</strong> ${infosUtiles.langue}</p>
         <p><strong>🌍 Région :</strong> ${infosUtiles.region}</p>
         <p><strong>💰 Devise :</strong> ${infosUtiles.devise}</p>
       </div>
-    </div>`;
+    </div>
+  `;
 };
 
 // 4. Écouteur sur la barre de recherche (avec le debounce)
@@ -107,19 +103,16 @@ searchInput.addEventListener("input", (e) => {
 });
 
 searchForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Empêche la page de se recharger
+  e.preventDefault();
 
   const searchTerm = searchInput.value.trim();
 
   if (searchTerm && currentCountries && currentCountries.length > 0) {
-    // On prend par défaut le premier pays de la liste suggérée
     const selectedCountry = currentCountries[0];
 
     displayCountry(selectedCountry);
-    suggestions.innerHTML = ""; // On efface la liste
-    searchInput.value = selectedCountry.names.common;
+    suggestions.innerHTML = "";
     searchInput.value = "";
-    // Attention à "name" au singulier si c'est ce que renvoie ton API !
   }
 });
 
@@ -136,8 +129,7 @@ suggestions.addEventListener("click", (e) => {
   const selectedCountry = currentCountries[index];
   if (selectedCountry) {
     displayCountry(selectedCountry);
-    suggestions.innerHTML = ""; // On efface la liste après le choix
-    searchInput.value = selectedCountry.names.common;
+    suggestions.innerHTML = "";
     searchInput.value = "";
   }
 });
